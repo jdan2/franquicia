@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url:
+    username:
+    password:
+  security:
+    enable: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+appDescription: "MicroServicio Franquicias"
+appVersion: "1.0.0"
