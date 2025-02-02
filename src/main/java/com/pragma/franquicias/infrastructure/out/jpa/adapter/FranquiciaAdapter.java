@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 
 @RequiredArgsConstructor
-public class FranquiciaJpaAdapter implements IFranquiciaPersistencePort {
+public class FranquiciaAdapter implements IFranquiciaPersistencePort {
 
     private final IFranquiciaRepository franquiciaRepository;
     private final IFranquiciaEntityMapper franquiciaEntityMapper;
