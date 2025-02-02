@@ -1,41 +1,29 @@
 package com.pragma.franquicias.infrastructure.configuration;
 
-import com.pragma.franquicias.domain.api.IUserServicePort;
-import com.pragma.franquicias.domain.spi.IUserPersistencePort;
-import com.pragma.franquicias.domain.usecase.UserUseCase;
-import com.pragma.franquicias.infrastructure.out.jpa.adapter.UserJpaAdapter;
-import com.pragma.franquicias.infrastructure.out.jpa.mapper.IUserEntityMapper;
-import com.pragma.franquicias.infrastructure.out.jpa.repository.IUserRepository;
+import com.pragma.franquicias.domain.api.IFranquiciaServicePort;
+import com.pragma.franquicias.domain.spi.IFranquiciaPersistencePort;
+import com.pragma.franquicias.domain.usecase.FranquiciaUseCase;
+import com.pragma.franquicias.infrastructure.out.jpa.adapter.FranquiciaJpaAdapter;
+import com.pragma.franquicias.infrastructure.out.jpa.mapper.IFranquiciaEntityMapper;
+import com.pragma.franquicias.infrastructure.out.jpa.repository.IFranquiciaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
 public class BeanConfiguration {
 
-    private final IUserRepository userRepository;
-    private final IUserEntityMapper objectEntityMapper;
+    private final IFranquiciaRepository franquiciaRepository;
+    private final IFranquiciaEntityMapper franquiciaEntityMapper;
 
     @Bean
-    public IUserPersistencePort userPersistencePort() {
-        return new UserJpaAdapter(userRepository, objectEntityMapper);
+    public IFranquiciaPersistencePort franquiciaPersistencePort() {
+        return new FranquiciaJpaAdapter(franquiciaRepository, franquiciaEntityMapper);
     }
-
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+    public IFranquiciaServicePort franquiciaServicePort() {
+        return new FranquiciaUseCase(franquiciaPersistencePort());
     }
-
-
-    @Bean
-    public IUserServicePort userServicePort() {
-        return new UserUseCase(userPersistencePort());
-    }
-
-
-
-
 }
