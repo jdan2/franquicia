@@ -1,11 +1,8 @@
 package com.pragma.franquicias.infrastructure.input.rest;
 
 
-import com.pragma.franquicias.application.dto.request.FranquiciaRequestDto;
 import com.pragma.franquicias.application.dto.request.SucursalRequestDto;
-import com.pragma.franquicias.application.dto.response.FranquiciaResponseDto;
 import com.pragma.franquicias.application.dto.response.SucursalResponseDto;
-import com.pragma.franquicias.application.handler.IFranquiciaHandler;
 import com.pragma.franquicias.application.handler.ISucursalHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
