@@ -24,4 +24,9 @@ public class ProductoAdapter implements IProductoPersistencePort {
                 .flatMap(productoRepository::save)
                 .map(productoEntityMapper::toModel);
     }
+
+    @Override
+    public Mono<Void> eliminarProducto(Long productoId) {
+        return productoRepository.deleteById(productoId);
+    }
 }
