@@ -26,6 +26,12 @@ public class ProductoAdapter implements IProductoPersistencePort {
     }
 
     @Override
+    public Mono<ProductoModelo> buscarProductoPorId(Long productoId) {
+        return productoRepository.findById(productoId)
+                .map(productoEntityMapper::toModel);
+    }
+
+    @Override
     public Mono<Void> eliminarProducto(Long productoId) {
         return productoRepository.deleteById(productoId);
     }
