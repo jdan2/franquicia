@@ -20,4 +20,9 @@ public class ProductoUseCase implements IProductoServicePort {
     public Mono<ProductoModelo> agregarProducto(ProductoModelo productoModelo) {
         return productoPersistencePort.agregarProducto(productoModelo);
     }
+
+    @Override
+    public Mono<Void> eliminarProducto(Long productoId) {
+        return productoPersistencePort.eliminarProducto(productoId);
+    }
 }
