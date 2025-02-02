@@ -5,7 +5,6 @@ import com.pragma.franquicias.application.dto.response.FranquiciaResponseDto;
 import com.pragma.franquicias.domain.model.FranquiciaModelo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import reactor.core.publisher.Mono;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
