@@ -2,7 +2,10 @@ package com.pragma.franquicias.infrastructure.input.rest;
 
 
 import com.pragma.franquicias.application.dto.request.FranquiciaRequestDto;
+import com.pragma.franquicias.application.dto.request.FranquiciaUpdateRequestDto;
+import com.pragma.franquicias.application.dto.request.StockRequestDto;
 import com.pragma.franquicias.application.dto.response.FranquiciaResponseDto;
+import com.pragma.franquicias.application.dto.response.ProductoResponseDto;
 import com.pragma.franquicias.application.handler.IFranquiciaHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -34,5 +37,23 @@ public class FranquiciasRestController {
                 .map(franquiciaResponseDto -> ResponseEntity.status(HttpStatus.CREATED).body(franquiciaResponseDto));
     }
 
+
+    @Operation(
+            summary = "Modificar nombre de un franquicia",
+            description = "Permite actualizar el nombre de una franquicia existente"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "nombre actualizado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos"),
+            @ApiResponse(responseCode = "404", description = "Franquicia no encontrada"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    @PatchMapping("/{franquiciaId}")
+    public  Mono<ResponseEntity<FranquiciaResponseDto>> actualizarStock(
+            @PathVariable Long franquiciaId,
+            @RequestBody FranquiciaUpdateRequestDto franquiciaUpdateRequestDto) {
+        return franquiciaHandler.actualizarFranquicia(franquiciaId, franquiciaUpdateRequestDto)
+                .map(franquiciaResponseDto -> ResponseEntity.status(HttpStatus.OK).body(franquiciaResponseDto));
+    }
 
 }
