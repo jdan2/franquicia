@@ -1,5 +1,6 @@
 package com.pragma.franquicias.application.handler.impl;
 
+import com.pragma.franquicias.application.dto.request.SucursalNombreRequestDto;
 import com.pragma.franquicias.application.dto.request.SucursalRequestDto;
 import com.pragma.franquicias.application.dto.response.SucursalResponseDto;
 import com.pragma.franquicias.application.handler.ISucursalHandler;
@@ -22,6 +23,13 @@ public class SucursalHandler implements ISucursalHandler {
     public Mono<SucursalResponseDto> agregarSucursal(Long franquiciaId, SucursalRequestDto sucursalRequestDto) {
         return Mono.just(sucursalMapper.toModel(franquiciaId, sucursalRequestDto))
                 .flatMap(sucursalServicePort::agregarSucursal)
+                .map(sucursalMapper::toResponse);
+    }
+
+    @Override
+    public Mono<SucursalResponseDto> agregarSucursal(Long sucursalId, SucursalNombreRequestDto sucursalNombreRequestDto) {
+        return Mono.just(sucursalMapper.toModelNombre(sucursalId, sucursalNombreRequestDto))
+                .flatMap(sucursalServicePort::actualizarFranquicia)
                 .map(sucursalMapper::toResponse);
     }
 }
