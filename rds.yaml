@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation para desplegar una base de datos MySQL en AWS RDS.
+
+Parameters:
+  DBName:
+    Type: String
+    Default: franquicias_db
+    Description: Nombre de la base de datos.
+
+  DBUsername:
+    Type: String
+    Default: admin
+    Description: Usuario administrador de la base de datos.
+
+  DBPassword:
+    Type: String
+    NoEcho: true
+    Default: admin4321
+    Description: Contraseña del usuario administrador.
+
+  DBInstanceClass:
+    Type: String
+    Default: db.t4g.micro
+    Description: Tipo de instancia RDS.
+
+  DBAllocatedStorage:
+    Type: Number
+    Default: '20'
+    Description: Almacenamiento en GB.
+
+Resources:
+  MySQLDB:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: !Ref DBName
+      DBInstanceIdentifier: franquiciadb
+      AllocatedStorage: !Ref DBAllocatedStorage
+      DBInstanceClass: !Ref DBInstanceClass
+      Engine: mysql
+      EngineVersion: '8.0'
+      MasterUsername: !Ref DBUsername
+      PubliclyAccessible: true
+      MasterUserPassword: !Ref DBPassword
+      StorageType: gp2
+      BackupRetentionPeriod: 0
+      MultiAZ: false
+      DBSubnetGroupName: !Ref DBSubnetGroup
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnets para RDS
+      SubnetIds:
+        -
+        -
+Outputs:
+  RDSInstanceEndpoint:
+    Description: Endpoint de la base de datos RDS
+    Value: !GetAtt MySQLDB.Endpoint.Address
