@@ -43,8 +43,10 @@ public class ProductoUseCase implements IProductoServicePort {
 
     @Override
     public Mono<Void> eliminarProducto(Long productoId) {
-        return productoPersistencePort.eliminarProducto(productoId)
-                .switchIfEmpty(Mono.error(new DomainException(PRODUCTO_NO_ENCONTRADO)));
+        return productoPersistencePort.buscarProductoPorId(productoId)
+                .switchIfEmpty(Mono.error(new DomainException(PRODUCTO_NO_ENCONTRADO)))
+                .flatMap(producto -> productoPersistencePort.eliminarProducto(producto.getId()))
+                .then(Mono.empty());
     }
 
     @Override
